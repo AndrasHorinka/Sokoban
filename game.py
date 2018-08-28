@@ -9,13 +9,10 @@ def start_module(game_map):
         game_map: a list in list with the selected map
     Returns:
         None, it just prints the map """
-    score_list = {"Steps" : 0, "Push" : 1}
-    while True:
-        ui.print_table(game_map, score_list)
+    score_list = {"Steps": 0, "Push": 0}
+    ui.print_table(game_map, score_list)
 
     # create a list of coordinates of the win condition zones
-    
-    pass
 
 
 def define_coords_of_win_condition(game_map):
