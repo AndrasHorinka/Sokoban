@@ -10,6 +10,8 @@ def start_module(game_map):
     Returns:
         None, it just prints the map """
     
+    # create a list of coordinates of the win condition zones
+    
     pass
 
 
@@ -23,6 +25,12 @@ def define_current_position(table):
     
     pass
 
+
+def check_win_condition(table, win_zones):
+    # 1. read the game_map
+    # 2. crosscheck if coordinates of boxes in table == to win_zones coordinates
+    #       if yes --> return win --
+    # 3. sys.exit() --> step back 3 stacks
 
 
 

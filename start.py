@@ -1,13 +1,16 @@
 import ui
 import file_manager
 import game
+import os
 
 
 def choose():
-    inputs = ui.get_inputs(["Please enter a number: "], "")
+    inputs = ui.get_input(["Please enter a number: "], "")
     option = inputs[0]
+    game_level = file_manager.get_table_from_file("map.csv")
+
     if option == "1":
-        game.start_module()
+        game.start_module(game_level)
     elif option == "2":
         game.select_level()
     elif option == "3":
@@ -15,7 +18,7 @@ def choose():
     elif option == "4":
         game.load_game()
     elif option == "0":
-        sys.exit(0)
+        os.sys.exit(0)
     else:
         raise KeyError("There is no such option.")
 

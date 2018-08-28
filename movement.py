@@ -24,7 +24,8 @@ def movement(direction):
     #                     move box in direction +1
 
     # 4. update the game_map
-    # 5. return game_map
+    # 5. call game.check_win_condition
+    # 6. return game_map
 
     pass
 
