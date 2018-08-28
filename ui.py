@@ -9,9 +9,9 @@ def show_menu(title, menu_elements, quit):
         None: This function doesn't return anything it only prints to console."""
     print("\n")
     print("\033[1;33m" + title + "\033[00m")
-    for i in range(len(list_options)):
-        print("\t ({0}) {1}".format((i + 1), list_options[i]))
-    print("\t (0) {0}".format(exit_message))
+    for i in range(len(menu_elements)):
+        print("\t ({0}) {1}".format((i + 1), menu_elements[i]))
+    print("\t (0) {0}".format(quit))
 
 
 def get_input(input_questions):
