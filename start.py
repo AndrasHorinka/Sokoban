@@ -1,5 +1,6 @@
 import ui
 import file_manager
+import game
 
 
 def choose():
