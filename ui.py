@@ -26,32 +26,65 @@ def get_input(input_questions):
     return answers
 
 
-def print_table(table, title_list):
+def print_table(table, score):
     """ Prints a table with a header, where header may contain Steps, Pushes, Tries, etc.
 
     Arguments:
-        table: type: list, containing the map of Sokoban
-        score: type: list containing the Steps, Pushes, Tries, etc. or anything else as per the list elements
+        table: type: list in list, containing the map of Sokoban
+        score: type: dictionary with score:value containing the Steps, Pushes
         """
-    # check what is the longest entry per column - and feed it into a list (+4
-    # to have some spaces)
-    column_width = []
-    for i in range(len(title_list)):
-        length = len(title_list[i])
-        for n in range(len(table)):
-            if len(table[n][i]) > length:
-                length = len(table[n][i])
-        column_width.append(length + 4)
+    # 1. check length of game_map
+    map_length = 2 * len(table[0]) - 1
 
-    # print the header of the table based on above calculations:
-    maxwidth = common.get_sum_of_list(column_width)
-    print("\n" + "\033[1;96m" + "/" + "-" * (maxwidth + len(title_list) - 1) + "\\" + "\033[00m")
+    # 2. check length dictionary
+    key_length  = len(list(score.keys())) + 1
+    for key in list(score.keys()):
+        key_length += len(key)
+    
+    for dict_value in list(score.values())):
+        key_length += len(str(dict_value))
+     
+    # 3. compare and give back longest entry
+    if map_length > key_length:
+        max_length = map_length
+    else:
+        max_length = key_length
+        # map_length += (key_length - map_length) // 2  
+    
+    # 4. print header based on max_length
+    print("\n" + "\033[1;96m" + "{0:^{width}}" + "\033[00m".format(score.items(), width=int(max_length -key_length)))
+
+    # 5. print map - but if its 
+    #         a wall --> color as dark gray back "\033[1;96m"
+    #         player --> color as light blue back  "\033[1;104m"
+    #         box --> color as light green back --> "\033[1;103m"
+    #         winzone --> color as light yellow back --> "\033[1;102m"
+    #         free space --> white background --> "\033[1;107m"
+    for row in table:
+        for char in row:
+            if char == X:
+                print("\033[1;100m" + "X" + "\033[00m", end="")
+            elif char == "O":
+                print("\033[1;104m" + "O" + "\033[00m", end="")
+            elif char == "S":
+                print("\033[1;102m" + "O" + "\033[00m", end="")
+            elif char == "B":
+                print("\033[1;103m" + "O" + "\033[00m", end="")
+            elif char == "_":
+                print("\033[1;107m" + " " + "\033[00m", end="")
+
+
+
+
+
+
+
 
     # print the title of the table
-    for i in range(len(title_list)):  # iterate per lines columns
+    for i in range(len(score)):  # iterate per lines columns
         print(
             "\033[1;96m" + "|" + "\033[00m" + "\033[1;33m" + "{0:^{width}}".format(
-                title_list[i],
+                score[i],
                 width=int(
                     column_width[i])) + "\033[00m",
             end="")
@@ -59,7 +92,7 @@ def print_table(table, title_list):
 
     # print the list elements
     for n in range(len(table)):  # iterate per lines
-        for m in range(len(title_list)):  # iterate per columns
+        for m in range(len(score)):  # iterate per columns
             print(
                 "\033[1;96m" + "|" + "\033[00m" + "{0:^{width}}".format(
                     table[n][m],
@@ -68,7 +101,7 @@ def print_table(table, title_list):
                 end="")
         print("\033[1;96m" + "|" + "\033[00m")
 
-    print("\033[1;96m" + "\\" + "-" * (maxwidth + len(title_list) - 1) + "/" + "\033[00m")
+    print("\033[1;96m" + "\\" + "-" * (maxwidth + len(score) - 1) + "/" + "\033[00m")
 
 
 def print_error_message(err):
