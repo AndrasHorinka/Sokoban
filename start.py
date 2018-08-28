@@ -5,7 +5,7 @@ import os
 
 
 def choose():
-    inputs = ui.get_input(["Please enter a number: "], "")
+    inputs = ui.get_input(["Please enter a number: "])
     option = inputs[0]
     game_level = file_manager.get_table_from_file("map.csv")
 
@@ -24,7 +24,7 @@ def choose():
 
 
 def handle_menu():
-    options = ["Play Game",
+    options = ["Play Ga1me",
                "Choose level",
                "Save Game",
                "Load Saved Game",]

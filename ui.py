@@ -26,7 +26,7 @@ def get_input(input_questions):
     return answers
 
 
-def print_table(table, score):
+def print_table(table, title_list):
     """ Prints a table with a header, where header may contain Steps, Pushes, Tries, etc.
 
     Arguments:
@@ -69,3 +69,7 @@ def print_table(table, score):
         print("\033[1;96m" + "|" + "\033[00m")
 
     print("\033[1;96m" + "\\" + "-" * (maxwidth + len(title_list) - 1) + "/" + "\033[00m")
+
+
+def print_error_message(err):
+    print(err)

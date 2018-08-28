@@ -1,9 +1,10 @@
 import game
 
-def movement(direction):
+def movement(table, direction):
     """ Checks if the user can move in the given direction, and returns the new map
     with updated positions of gamefield (incl. boxes, palyer.
     Arguments:
+        table: type: list in list; the current game_map
         direction: wasd - defining in which direction we want to go/push
     
     Returns: 
@@ -28,6 +29,6 @@ def movement(direction):
     # 6. return game_map
 
     pass
-
+    # Andras
 
 
