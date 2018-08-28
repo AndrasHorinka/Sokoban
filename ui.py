@@ -38,24 +38,11 @@ def print_table(table, score):
 
     # 2. check length dictionary
     header = ""
-    key_length = len(list(score.keys())) + 1
     for key in list(score.keys()):
-        key_length += len(key)
         header += str(key) + " " + str(score.get(key)) + " "
 
-    for dict_value in list(score.values()):
-        key_length += len(str(dict_value))
-
-    # 3. compare and give back longest entry
-    if map_length > key_length:
-        max_length = map_length
-        table_distance = 0
-    else:
-        max_length = key_length
-        table_distance = (key_length - map_length) // 2
-
     # 4. print header based on max_length
-    print("\033[1;96m" + "{0:^{width}}".format(header, width=int(max_length)) + "\033[00m")
+    print("\t" "\033[1;96m" + "{0:<}".format(header) + "\033[00m")
 
     for row in table:
         print("\t", end="")
