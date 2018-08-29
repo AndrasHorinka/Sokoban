@@ -2,6 +2,7 @@
 import file_manager
 import ui
 import movement
+import sys
 
 
 def start_module(game_map):
@@ -10,7 +11,7 @@ def start_module(game_map):
         game_map: a list in list with the selected map
     Returns:
         None, it just prints the map """
-    win_zones = define_coords_of_searched_letter(game_map,letter)
+    win_zones = define_coords_of_searched_letter(game_map, "S")
     score_list = {"Steps": 0, "Push": 0}
     actual_map = game_map
     while True:
@@ -40,17 +41,6 @@ def define_coords_of_searched_letter(game_map,letter):
     return win_zones
 
 
-def define_current_position(game_map):
-    """ Define the position of the Player in given map
-    Arguments:
-        table: list in list - current map
-        
-    Return: 
-        coordinates of player as list [y, x] where y is the first list coordinate, x is the list in list coordinate  """
-    pass
-    # Geri 
-
-
 def check_win_condition(game_map, win_zones):
     current_map = game_map
     for zone in win_zones:
@@ -58,8 +48,9 @@ def check_win_condition(game_map, win_zones):
             return True
         else:
             continue
+    ui.print_table(current_map, {})
     print("You Win!!")
-    return False
+    sys.exit(0)
 
 
 def select_level():
@@ -72,4 +63,3 @@ def save_game():
 
 def load_game():
     pass
-
