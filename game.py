@@ -1,6 +1,7 @@
 # main game methods
 import file_manager
 import ui
+import movement
 
 
 def start_module(game_map):
@@ -9,20 +10,29 @@ def start_module(game_map):
         game_map: a list in list with the selected map
     Returns:
         None, it just prints the map """
-    step_push = []
+    win_cords = define_coords_of_win_condition(game_map)
+    score_list = {"Steps": 0, "Push": 0}
+    actual_map = game_map
     while True:
-        ui.print_table(game_map)
+        ui.print_table(actual_map, score_list)
+        try:
+            next_move = ui.get_input(["Make your move!, Q for exit"])
+            choice = next_move[0]
+            if choice == "q":
+                return False
+            actual_map = movement.movement(actual_map, str(choice))
 
-    # create a list of coordinates of the win condition zones
-    
-    pass
+        except KeyError as err:
+            print("There is no such option! Use WASD to move or Q to quit!")
+
+
 
 
 def define_coords_of_win_condition(game_map):
-    win_zones = ""
+    win_zones = []
     for pos, line in enumerate(game_map):
-        for char, row in enumaret(line):    
-            win_zones += char
+        for char, row in enumaret(line)  
+            win_zones.append([pos,char]) 
     return win_zones
 
     """ Define the zones of win condition (winzones);
@@ -70,3 +80,4 @@ def save_game():
 
 def load_game():
     pass
+# main game methods  

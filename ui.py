@@ -26,50 +26,41 @@ def get_input(input_questions):
     return answers
 
 
-def print_table(table, title_list):
+def print_table(table, score):
     """ Prints a table with a header, where header may contain Steps, Pushes, Tries, etc.
 
     Arguments:
-        table: type: list, containing the map of Sokoban
-        score: type: list containing the Steps, Pushes, Tries, etc. or anything else as per the list elements
+        table: type: list in list, containing the map of Sokoban
+        score: type: dictionary with score:value containing the Steps, Pushes
         """
-    # check what is the longest entry per column - and feed it into a list (+4
-    # to have some spaces)
-    column_width = []
-    for i in range(len(title_list)):
-        length = len(title_list[i])
-        for n in range(len(table)):
-            if len(table[n][i]) > length:
-                length = len(table[n][i])
-        column_width.append(length + 4)
+    # 1. check length of game_map
+    map_length = 2 * len(table[0]) - 1
 
-    # print the header of the table based on above calculations:
-    maxwidth = common.get_sum_of_list(column_width)
-    print("\n" + "\033[1;96m" + "/" + "-" * (maxwidth + len(title_list) - 1) + "\\" + "\033[00m")
+    # 2. check length dictionary
+    header = ""
+    for key in list(score.keys()):
+        header += str(key) + " " + str(score.get(key)) + " "
 
-    # print the title of the table
-    for i in range(len(title_list)):  # iterate per lines columns
-        print(
-            "\033[1;96m" + "|" + "\033[00m" + "\033[1;33m" + "{0:^{width}}".format(
-                title_list[i],
-                width=int(
-                    column_width[i])) + "\033[00m",
-            end="")
-    print("\033[1;96m" + "|" + "\033[00m")
+    # 4. print header based on max_length
+    print("\t" "\033[1;96m" + "{0:<}".format(header) + "\033[00m")
 
-    # print the list elements
-    for n in range(len(table)):  # iterate per lines
-        for m in range(len(title_list)):  # iterate per columns
-            print(
-                "\033[1;96m" + "|" + "\033[00m" + "{0:^{width}}".format(
-                    table[n][m],
-                    width=int(
-                        column_width[m])),
-                end="")
-        print("\033[1;96m" + "|" + "\033[00m")
-
-    print("\033[1;96m" + "\\" + "-" * (maxwidth + len(title_list) - 1) + "/" + "\033[00m")
+    for row in table:
+        print("\t", end="")
+        for char in row:
+            if char == "X":
+                print("\033[1;48m" + "X" + "\033[00m", end="")
+            elif char == "O":
+                print("\033[1;41m" + "O" + "\033[00m", end="")
+            elif char == "S":
+                print("\033[1;103m" + "S" + "\033[00m", end="")
+            elif char == "B":
+                print("\033[1;42m" + "B" + "\033[00m", end="")
+            elif char == "_":
+                print(" ", end="")
+            else:
+                raise ImportWarning("Unidentified character in map!")
+        print("")
 
 
 def print_error_message(err):
-    print(err)
+    pass

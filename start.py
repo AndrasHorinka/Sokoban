@@ -24,10 +24,10 @@ def choose():
 
 
 def handle_menu():
-    options = ["Play Ga1me",
+    options = ["Play Game",
                "Choose level",
                "Save Game",
-               "Load Saved Game",]
+               "Load Saved Game"]
 
     ui.show_menu("Main menu", options, "Exit program")
 
