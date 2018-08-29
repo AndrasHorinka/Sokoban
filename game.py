@@ -3,6 +3,7 @@ import file_manager
 import ui
 import movement
 
+
 def start_module(game_map):
     """ Loads the selected map (default if none given)
     Arguments: 
@@ -23,15 +24,7 @@ def start_module(game_map):
         actual_map = movement.movement(actual_map, str(next_move[0]))
 
 
-
 def define_coords_of_searched_letter(game_map,letter):
-    win_zones = []
-    for pos, line in enumerate(game_map):
-        for char, row in enumaret(line):
-            if letter == row:
-                win_zones.append([pos, char])
-    return win_zones
-
     """ Define the zones of win condition (winzones);
     Argument: 
 
@@ -39,11 +32,15 @@ def define_coords_of_searched_letter(game_map,letter):
 
     Returns: tuple/list of the coordinates of the winzones
      """
-    
+    win_zones = []
+    for pos, line in enumerate(game_map):
+        for char, row in enumerate(line):
+            if letter == row:
+                win_zones.append([pos, char])
+    return win_zones
+
 
 def define_current_position(game_map):
-
-
     """ Define the position of the Player in given map
     Arguments:
         table: list in list - current map
@@ -55,25 +52,14 @@ def define_current_position(game_map):
 
 
 def check_win_condition(game_map, win_zones):
-    # 1. read the game_map
     current_map = game_map
-
-    # 2. crosscheck if coordinates of boxes in table == to win_zones coordinates
-    #       if yes --> return win --
-    
-    for win_zones in game_map[zone[0], zone[1]]:
-        if win_zone not in "B":
-            return False
+    for zone in win_zones:
+        if current_map[zone[0]][zone[1]] not in "B":
+            return True
         else:
-            pass
-    # (3. sys.exit() --> step back 3 stacks)
+            continue
     print("You Win!!")
-    sys.exit()
-
-list[[0][1]]
-
-def restart_game():
-    pass
+    return False
 
 
 def select_level():
@@ -86,4 +72,4 @@ def save_game():
 
 def load_game():
     pass
-# main game methods  
+
