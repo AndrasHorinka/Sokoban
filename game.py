@@ -2,7 +2,8 @@
 import file_manager
 import ui
 import movement
-import sys
+import start
+# import sys
 
 
 def start_module(game_map):
@@ -50,7 +51,7 @@ def check_win_condition(game_map, win_zones):
             continue
     ui.print_table(current_map, {})
     print("You Win!!")
-    sys.exit(0)
+    start.os.sys.exit(0)
 
 
 def select_level():

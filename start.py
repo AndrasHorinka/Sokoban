@@ -2,6 +2,8 @@ import ui
 import file_manager
 import game
 import os
+import tkinter as tk
+
 
 
 def choose():
@@ -34,6 +36,9 @@ def handle_menu():
 
 def main():
     while True:
+        top = tk.Tk()
+        # code to add widgets goes here
+        top.mainloop()
         handle_menu()
         try:
             choose()
