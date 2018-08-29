@@ -19,6 +19,12 @@ def start_module(game_map):
 
 
 def define_coords_of_win_condition(game_map):
+    win_zones = ""
+    for pos, line in enumerate(game_map):
+        for char, row in enumaret(line):    
+            win_zones += char
+    return win_zones
+
     """ Define the zones of win condition (winzones);
     Argument: 
 
@@ -26,12 +32,13 @@ def define_coords_of_win_condition(game_map):
 
     Returns: tuple/list of the coordinates of the winzones
      """
-    # Geri
+    
 
-    pass
+    
 
 
 def define_current_position(game_map):
+    
     """ Define the position of the Player in given map
     Arguments:
         table: list in list - current map
@@ -47,7 +54,7 @@ def check_win_condition(game_map, win_zones):
     # 1. read the game_map
     # 2. crosscheck if coordinates of boxes in table == to win_zones coordinates
     #       if yes --> return win --
-    # 3. sys.exit() --> step back 3 stacks
+    # (3. sys.exit() --> step back 3 stacks)
 
     pass
     # Geri
