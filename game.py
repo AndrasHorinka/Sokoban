@@ -63,22 +63,18 @@ def define_current_position(game_map):
 
 def check_win_condition(game_map, win_zones):
     # 1. read the game_map
-    current_map = table
+    current_map = game_map
 
     # 2. crosscheck if coordinates of boxes in table == to win_zones coordinates
     #       if yes --> return win --
     
-    for win_zones in game_map[zone[0], zone[1]]:
-        if win_zone not in "B":
-            return False
+    for zone in win_zones:
+        if current_map[zone[0]][zone[1]] not in "B":
+            return True
         else:
-            
-    # (3. sys.exit() --> step back 3 stacks)
+            countinue
     print("You Win!!")
-    sys.exit()
-
-def restart_game():
-
+    return False
 
 def select_level():
     pass
