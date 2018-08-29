@@ -10,23 +10,22 @@ def start_module(game_map):
         game_map: a list in list with the selected map
     Returns:
         None, it just prints the map """
-    win_cords = define_coords_of_win_condition(game_map)
+    win_zones = define_coords_of_searched_letter(game_map, "S")
     score_list = {"Steps": 0, "Push": 0}
     actual_map = game_map
     while True:
+        check_win_condition(actual_map, win_zones)
         ui.print_table(actual_map, score_list)
-        try:
+        next_move = ui.get_input(["Make your move!, Q for exit"])
+        while next_move[0] not in "wWaAsSdDqQ":
             next_move = ui.get_input(["Make your move!, Q for exit"])
-            choice = next_move[0]
-            if choice == "q":
-                return False
-            actual_map = movement.movement(actual_map, str(choice))
-
-        except KeyError as err:
-            print("There is no such option! Use WASD to move or Q to quit!")
+        if next_move[0] == "q":
+            return False
+        actual_map = movement.movement(actual_map, str(next_move[0]))
 
 
-def define_coords_of_win_condition(game_map):
+
+def define_coords_of_searched_letter(game_map, letter):
     """ Define the zones of win condition (winzones);
     Argument: 
 

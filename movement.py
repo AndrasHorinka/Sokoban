@@ -11,58 +11,52 @@ def movement(table, direction):
     Returns:
         updated_map: list in list, with  """
 
-    # 1. read the whole game_map
     current_map = table
 
-    # 2. define player position
-    player_coordinates = search_position_in_table(current_map, "X")
-    player_row = int(player_coordinates[0])
-    player_col = int(player_coordinates[1])
+    player_coordinates = search_position_in_table(current_map, "O")
+    player_row = int(player_coordinates[0][0])
+    player_col = int(player_coordinates[0][1])
 
-    # 3. check what is in direction
-    if direction == "W":
-        item_in_direction1 = search_item_in_table_position(current_map, player_row - 1, player_col)
+    if direction in "wW":
+        player_plus_1 = [player_row - 1, player_col]
         try:
-            item_in_direction2 = search_item_in_table_position(current_map, player_row - 2, player_col)
+            player_plus_2 = [player_row - 2, player_col]
         except IndexError:
-            item_in_direction2 = "X"
-    elif direction == "S":
-        item_in_direction1 = search_item_in_table_position(current_map, player_row + 1, player_col)
+            player_plus_2 = [[player_row - 1, player_col]]
+    elif direction in "sS":
+        player_plus_1 = [player_row + 1, player_col]
         try:
-            item_in_direction2 = search_item_in_table_position(current_map, player_row + 2, player_col)
+            player_plus_2 = [player_row + 2, player_col]
         except IndexError:
-            item_in_direction2 = "X"
-
-    if direction == "A":
-        item_in_direction1 = search_item_in_table_position(current_map, player_row, player_col - 1)
+            player_plus_2 = [[player_row + 1, player_col]]
+    elif direction in "aA":
+        player_plus_1 = [player_row, player_col - 1]
         try:
-            item_in_direction2 = search_item_in_table_position(current_map, player_row, player_col - 2)
+            player_plus_2 = [player_row, player_col - 2]
         except IndexError:
-            item_in_direction2 = "X"
-    elif direction == "D":
-        item_in_direction1 = search_item_in_table_position(current_map, player_row, player_col + 1)
+            player_plus_2 = [[player_row, player_col] - 1]
+    elif direction in "dD":
+        player_plus_1 = [player_row, player_col + 1]
         try:
-            item_in_direction2 = search_item_in_table_position(current_map, player_row, player_col + 2)
+            player_plus_2 = [player_row, player_col + 2]
         except IndexError:
-            item_in_direction2 = "X"
+            player_plus_2 = [[player_row, player_col] + 1] 
+    else:
+        raise UserWarning("Incorrect movement")
 
-    #     if nothing, just move player
-    #     else: check
-    #         what is in direction +1
-    #             if wall --> block, cannot move
-    #             else:
-    #                 check if what is in direction +2:
-    #                 if not whitespace (_) --> block
-    #                 else: 
-    #                     move player in direction +1
-    #                     move box in direction +1
+    item_in_direction1 = current_map[player_plus_1[0]][player_plus_1[1]]
+    item_in_direction2 = current_map[player_plus_2[0]][player_plus_2[1]]
 
-    # 4. update the game_map
-    # 5. call game.check_win_condition
-    # 6. return game_map
-
-    pass
-    # Andras
+    if item_in_direction1 in "B":
+        if item_in_direction2 not in "BX":
+            current_map[player_plus_2[0]][player_plus_2[1]] = "B"
+            current_map[player_plus_1[0]][player_plus_1[1]] = "O"
+            current_map[player_row][player_col] = "_"
+    elif item_in_direction1 in "_S":
+            current_map[player_plus_1[0]][player_plus_1[1]] = current_map[player_row][player_col]
+            current_map[player_row][player_col] = "_"
+    
+    return current_map
 
 
 def search_position_in_table(table, char_to_search):
@@ -79,14 +73,3 @@ def search_position_in_table(table, char_to_search):
                 coordinates.append([rowind, charind])
 
     return coordinates
-
-
-def search_item_in_table_position(table, row, col):
-    """ Search what is in the given in the table.
-    Arguments:
-        table: type - list (in list) of the current map
-        row: type - integer; the coordinate of row
-        col: type - integer; the coordinate of column
-    Returns:
-        Item Char: type: string (X, O, B, S) """
-    item_char = ""
